@@ -1,0 +1,38 @@
+{% schema %}
+{
+  "name": "Bundle Builder",
+  "tag": "section",
+  "class": "bundle-builder-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Bundle Builder"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="bundle-builder">
+  <div class="bundle-products">
+    {% assign bundle_products = collections['bundle-products'].products %}
+    {% for product in bundle_products %}
+      <div class="bundle-product-card" data-product-id="{{ product.variants.first.id }}" data-product-title="{{ product.title }}" data-product-handle="{{ product.handle }}" data-product-price="{{ product.price }}">
+        <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+        <h4>{{ product.title }}</h4>
+        <p>{{ product.price | money }}</p>
+        <button class="add-to-bundle-btn">Add to Bundle</button>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="bundle-sidebar">
+    <h3>Your Bundle (<span id="bundle-count">0</span>/4)</h3>
+    <div id="bundle-list"></div>
+
+    <div class="bundle-discount">
+      <p id="discount-text">Get 1 box – No discount</p>
+    </div>
+
+    <button id="add-bundle-to-cart" class="button" disabled>Add to Cart</button>
+  </div>
+</div>
